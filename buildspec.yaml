@@ -3,15 +3,15 @@ phases:
   install:
     runtime-versions:
       java: corretto11
-
+ 
   build:
     commands:
         - mvn clean package
-
+ 
   post_build:
       commands:
         # Use Post-Build for notifications, git tags, upload artifacts to S3
-        - sam package --s3-bucket $PACKAGE_BUCKET --output-template-file packaged.yaml
+        - sam package --template-file target/sam.jvm.yaml --s3-bucket $PACKAGE_BUCKET --output-template-file out.yaml
 artifacts:
   files:
-    - packaged.yaml
+    - out.yaml
